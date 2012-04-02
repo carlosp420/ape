@@ -100,7 +100,12 @@ clado.build <- function(tp)
     obj
 }
 
-read.nexus <- function(file, tree.names = NULL)
+
+# ------------------------------
+# Carlos 2012-04-02, adding parameter count 
+# which should be a number from 1 to n
+# this will be used to read one tree at a time
+read.nexus <- function(file, tree.names = NULL, count=NULL)
 {
     X <- scan(file = file, what = "", sep = "\n", quiet = TRUE)
     ## remove all comments
@@ -178,6 +183,23 @@ read.nexus <- function(file, tree.names = NULL)
     rm(tree)
     ## exclude the possible command lines ending with ";":
     STRING <- STRING[grep("^[[:blank:]]*tree.*= *", STRING, ignore.case = TRUE)]
+
+
+	# ------------------------------
+	# Carlos 2012-04-02
+	# This is to select only the tree number count
+	if( length(count) > 0 ) { # it means that count is not NULL
+		# count is bigger that number of trees?
+		if( count > length(STRING) ) {
+			stop(paste("The paramter count is too high, there are not so many trees in your file.\nReading NEXUS file aborted."))
+		}
+
+		STRING <- STRING[count];
+		print(STRING);
+		print(length(STRING));
+	}
+	
+
     Ntree <- length(STRING) # update Ntree
     ## get the tree names:
     nms.trees <- sub(" *= *.*", "", STRING) # only the first occurence of "="
