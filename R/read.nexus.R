@@ -1,4 +1,4 @@
-## read.nexus.R (2012-02-09)
+## read.nexus.R (2012-04-02)
 
 ##   Read Tree File in Nexus Format
 
