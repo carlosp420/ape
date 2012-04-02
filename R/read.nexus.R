@@ -195,8 +195,6 @@ read.nexus <- function(file, tree.names = NULL, count=NULL)
 		}
 
 		STRING <- STRING[count];
-		print(STRING);
-		print(length(STRING));
 	}
 	
 
